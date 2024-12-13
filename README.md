@@ -103,6 +103,7 @@ networks:
     docker-compose up --build - запуск докер контейнеров (и сборка образов).
 
 7) Пример работы с приложением:
+   ```
    ...$ mvn clean package
    ...$ docker-compose up --build
    ...$ curl -X GET http://localhost:8080/users -H "Content-Type: application/json"
@@ -116,3 +117,4 @@ networks:
    ...$ curl -X GET http://localhost:8080/users -H "Content-Type: application/json"
 
    [{"id":1,"name":"John Doe"},{"id":2,"name":"New User"},{"id":3,"name":"Third User"},{"id":4,"name":"Last User"}]
+   ```
