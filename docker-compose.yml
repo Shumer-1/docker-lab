@@ -1,0 +1,37 @@
+version: '3'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: yourusername
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: yourdatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - docker_network
+
+  app:
+    image: yourapp:latest
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - docker_network
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/yourdatabase
+      SPRING_DATASOURCE_USERNAME: yourusername
+      SPRING_DATASOURCE_PASSWORD: yourpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  docker_network:
+    driver: bridge
